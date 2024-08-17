@@ -18,6 +18,12 @@ posts = [
 def home():
     return render_template('home.html', posts=posts)
 
+
 @app.route("/about")
 def about():
-    return render_template('about.html', title = "About")
+    return render_template('about.html', title="About")
+
+
+@app.route("/login", methods=["POST", "GET"])
+def login():
+    return render_template('login.html', title="Login")
