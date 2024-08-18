@@ -1,6 +1,6 @@
 from flask import flash, render_template, url_for
 from flask.globals import request
-from flask_login import login_required, login_user, logout_user
+from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.utils import redirect
 
 from flaskblog import app, bcrypt, db
@@ -40,11 +40,14 @@ def register():
         db.session.commit()
         flash('Your account has been create!', 'success')
         return redirect(url_for('login'))
+
     return render_template('register.html', title='Register', form=form)
 
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
