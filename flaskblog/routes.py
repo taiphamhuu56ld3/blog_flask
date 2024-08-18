@@ -3,8 +3,8 @@ from flask.globals import request
 from flask_login import login_user
 from werkzeug.utils import redirect
 
-from flaskblog import app, bcrypt
-from flaskblog.forms import LoginForm
+from flaskblog import app, bcrypt, db
+from flaskblog.forms import LoginForm, RegistrationForm
 from flaskblog.models import User
 
 posts = [
@@ -27,9 +27,21 @@ def home():
 def about():
     return render_template('about.html', title="About")
 
-@app.route("/register", methods = ["POST", "GET"])
+
+@app.route("/register", methods=["POST", "GET"])
 def register():
-    return render_template('register.html', title = 'Register')
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(
+            form.password.data).decode('utf-8')
+        user = User(user_name=form.user_name.data,
+                    email=form.email.data, password=hashed_password)
+        db.session.add(user)
+        db.session.commit()
+        flash('Your account has been create!', 'success')
+        return redirect(url_for('login'))
+    return render_template('register.html', title='Register', form=form)
+
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
