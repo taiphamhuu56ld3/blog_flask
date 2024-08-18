@@ -1,6 +1,6 @@
 from flask import flash, render_template, url_for
 from flask.globals import request
-from flask_login import login_user
+from flask_login import login_user, login_required
 from werkzeug.utils import redirect
 
 from flaskblog import app, bcrypt, db
@@ -57,6 +57,8 @@ def login():
             flash('Login Unsucessful. Please check email and password', 'danger')
     return render_template('login.html', title="Login", form=form)
 
+#infor account
 @app.route("/account")
+@login_required
 def account():
     return render_template('account.html', title = 'Account')
