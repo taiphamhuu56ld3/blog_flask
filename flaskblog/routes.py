@@ -4,8 +4,8 @@ from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.utils import redirect
 
 from flaskblog import app, bcrypt, db
-from flaskblog.forms import LoginForm, RegistrationForm
-from flaskblog.models import User
+from flaskblog.forms import LoginForm, PostForm, RegistrationForm
+from flaskblog.models import Post, User
 
 posts = [
     {
@@ -74,4 +74,14 @@ def account():
 
 @app.route("/post/new", methods=['GET', 'POST'])
 def new_post():
-    return render_template("create_post.html", title="Create Post")
+    form = PostForm()
+    if form.validate_on_submit():
+        post_title = form.title.data
+        post_content = form.content.data
+        post = Post(title=post_title, content=post_content,
+                    author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash('Your post has been created!', 'success')
+        return redirect(url_for('home'))
+    return render_template("create_post.html", title="Create Post", form=form, name="New Post")
