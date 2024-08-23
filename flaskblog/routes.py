@@ -3,6 +3,7 @@ import secrets
 
 from flask import flash, render_template, url_for
 from flask.globals import request
+from flask_dance.contrib.github import github
 from flask_login import current_user, login_required, login_user, logout_user
 from PIL import Image
 from werkzeug.utils import redirect
@@ -127,7 +128,18 @@ def new_post():
         return redirect(url_for('home'))
     return render_template("create_post.html", title="Create Post", form=form, name="New Post")
 
+
 @app.route("/post/<int:post_id>", methods=['GET', 'POST'])
 def post(post_id):
     post = Post.query.get_or_404(post_id)
     return render_template('post.html', title='post', post=post)
+
+
+@app.route("/gitlogin")
+def gitlogin():
+    if not github.authorized:
+        return redirect(url_for("github.login"))
+    resp = github.get("/user")
+    assert resp.ok
+    print(resp.json())
+    return "You are @{login} on GitHub".format(login=resp.json()["login"])
