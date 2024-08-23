@@ -13,14 +13,6 @@ from flaskblog.forms import (LoginForm, PostForm, RegistrationForm,
                              UpdateAccountForm)
 from flaskblog.models import Post, User
 
-posts = [
-    {
-        'author': 'Tai',
-        'title': 'Page',
-        'content': "This is Content",
-        'date_posted': 'August 15, 2024'
-    }
-]
 
 # Decorator
 @app.route("/")
