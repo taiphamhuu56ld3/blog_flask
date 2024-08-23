@@ -25,6 +25,7 @@ posts = [
 @app.route("/")
 @app.route("/home")
 def home():
+    posts = Post.query.all()
     return render_template('home.html', posts=posts)
 
 
@@ -125,3 +126,8 @@ def new_post():
         flash('Your post has been created!', 'success')
         return redirect(url_for('home'))
     return render_template("create_post.html", title="Create Post", form=form, name="New Post")
+
+@app.route("/post/<int:post_id>", methods=['GET', 'POST'])
+def post(post_id):
+    post = Post.query.get_or_404(post_id)
+    return render_template('post.html', title='post', post=post)
