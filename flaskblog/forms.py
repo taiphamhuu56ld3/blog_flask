@@ -2,8 +2,7 @@ from flask_login import current_user
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed, FileField
 from wtforms import BooleanField, StringField
-from wtforms.fields.simple import (BooleanField, PasswordField, SubmitField,
-                                   TextAreaField)
+from wtforms.fields.simple import PasswordField, SubmitField, TextAreaField
 from wtforms.validators import (DataRequired, Email, EqualTo, Length,
                                 ValidationError)
 
