@@ -18,6 +18,7 @@ mail = Mail()
 
 from flaskblog.users.routes import app
 from flaskblog.main.routes import app
+from flaskblog.posts.routes import app
 
 def create_app(config_class=Config):
     app.config.from_object(config_class)
