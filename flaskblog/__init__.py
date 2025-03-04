@@ -12,11 +12,10 @@ app = Flask(__name__)
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
-login_manager.login_view = 'login'
+login_manager.login_view = 'users.login'
 login_manager.login_message_category ='info'
 mail = Mail()
 
-from flaskblog.users.routes import app
 from flaskblog.posts.routes import app
 
 def create_app(config_class=Config):
@@ -27,7 +26,9 @@ def create_app(config_class=Config):
     login_manager.init_app(app)
     mail.init_app(app)
     from flaskblog import routes
+    from flaskblog.users.routes import users
     from flaskblog.main.routes import main
+    app.register_blueprint(users)
     app.register_blueprint(main)
     blueprint = make_github_blueprint(
         client_id="Ov23liCBryBDxvtnwTqH",

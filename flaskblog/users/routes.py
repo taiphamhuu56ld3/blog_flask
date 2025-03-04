@@ -1,18 +1,19 @@
 import os
 import secrets
 
-from flask import flash, redirect, render_template, request, url_for
+from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_dance.contrib.github import github
 from flask_login import current_user, login_required, login_user, logout_user
 from PIL import Image
 
-from flaskblog import app, bcrypt, db
+from flaskblog import bcrypt, db
 from flaskblog.forms import (LoginForm, RegistrationForm,
                              UpdateAccountForm)
 from flaskblog.models import User
 
+users = Blueprint('users', __name__)
 
-@app.route("/register", methods=["POST", "GET"])
+@users.route("/register", methods=["POST", "GET"])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
@@ -23,12 +24,12 @@ def register():
         db.session.add(user)
         db.session.commit()
         flash('Your account has been create!', 'success')
-        return redirect(url_for('login'))
+        return redirect(url_for('users.login'))
 
     return render_template('register.html', title='Register', form=form)
 
 
-@app.route("/login", methods=["POST", "GET"])
+@users.route("/login", methods=["POST", "GET"])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
@@ -45,7 +46,7 @@ def login():
     return render_template('login.html', title="Login", form=form)
 
 
-@app.route("/logout")
+@users.route("/logout")
 def logout():
     logout_user()
     return redirect(url_for('main.home'))
@@ -57,7 +58,7 @@ def save_picture(form_picture):
     _, f_text = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_text
     picture_path = os.path.join(
-        app.root_path, 'static/profile_pics', picture_fn)
+        users.root_path, 'static/profile_pics', picture_fn)
 
     out_size = (125, 125)
     i = Image.open(form_picture)
@@ -67,7 +68,7 @@ def save_picture(form_picture):
     return picture_fn
 
 # Infor account
-@app.route("/account", methods=['GET', 'POST'])
+@users.route("/account", methods=['GET', 'POST'])
 @login_required
 def account():
     form = UpdateAccountForm()
@@ -91,7 +92,7 @@ def account():
     return render_template('account.html', title='Account', image_file=image_file, form=form)
 
 
-@app.route("/gitlogin")
+@users.route("/gitlogin")
 def gitlogin():
     if not github.authorized:
         return redirect(url_for("github.login"))
