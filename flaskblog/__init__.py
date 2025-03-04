@@ -16,7 +16,6 @@ login_manager.login_view = 'users.login'
 login_manager.login_message_category ='info'
 mail = Mail()
 
-from flaskblog.posts.routes import app
 
 def create_app(config_class=Config):
     app.config.from_object(config_class)
@@ -27,9 +26,11 @@ def create_app(config_class=Config):
     mail.init_app(app)
     from flaskblog import routes
     from flaskblog.users.routes import users
+    from flaskblog.posts.routes import posts
     from flaskblog.main.routes import main
     app.register_blueprint(users)
     app.register_blueprint(main)
+    app.register_blueprint(posts)
     blueprint = make_github_blueprint(
         client_id="Ov23liCBryBDxvtnwTqH",
         client_secret="0f23236da39e20bd27b6669d12c4808d75b44c7f",
