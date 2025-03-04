@@ -7,9 +7,9 @@ from flask_login import current_user, login_required, login_user, logout_user
 from PIL import Image
 
 from flaskblog import bcrypt, db
-from flaskblog.forms import (LoginForm, RegistrationForm,
-                             UpdateAccountForm)
 from flaskblog.models import User
+from flaskblog.users.forms import (LoginForm, RegistrationForm,
+                                   UpdateAccountForm)
 
 users = Blueprint('users', __name__)
 
