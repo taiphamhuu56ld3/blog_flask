@@ -15,45 +15,6 @@ from flaskblog.models import Post, User
 
 
 # Decorator
-@app.route("/register", methods=["POST", "GET"])
-def register():
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(
-            form.password.data).decode('utf-8')
-        user = User(user_name=form.user_name.data,
-                    email=form.email.data, password=hashed_password)
-        db.session.add(user)
-        db.session.commit()
-        flash('Your account has been create!', 'success')
-        return redirect(url_for('login'))
-
-    return render_template('register.html', title='Register', form=form)
-
-
-@app.route("/login", methods=["POST", "GET"])
-def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('home'))
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
-        if user and bcrypt.check_password_hash(user.password, form.password.data):
-            login_user(user, remember=form.remember.data)
-            # next page is account
-            next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('home'))
-        else:
-            flash('Login Unsucessful. Please check email and password', 'danger')
-    return render_template('login.html', title="Login", form=form)
-
-
-@app.route("/logout")
-def logout():
-    logout_user()
-    return redirect(url_for('home'))
-
-
 def save_picture(form_picture):
     random_hex = secrets.token_hex(8)
     # Get name picture
@@ -70,30 +31,6 @@ def save_picture(form_picture):
     return picture_fn
 
 # Infor account
-@app.route("/account", methods=['GET', 'POST'])
-@login_required
-def account():
-    form = UpdateAccountForm()
-    if form.validate_on_submit():
-        if form.picture.data:
-            picture_file = save_picture(form.picture.data)
-            current_user.image_file = picture_file
-
-        current_user.user_name = form.username.data
-        current_user.email = form.email.data
-        db.session.commit()
-        flash('Your account has been updated!', 'success')
-        return redirect(url_for('account'))
-
-    elif request.method == 'GET':
-        form.username.data = current_user.user_name
-        form.email.data = current_user.email
-    image_file = url_for(
-        'static', filename='profile_pics/' + current_user.image_file)
-
-    return render_template('account.html', title='Account', image_file=image_file, form=form)
-
-
 @app.route("/post/new", methods=['GET', 'POST'])
 @login_required
 def new_post():
@@ -114,16 +51,6 @@ def new_post():
 def post(post_id):
     post = Post.query.get_or_404(post_id)
     return render_template('post.html', title='post', post=post)
-
-
-@app.route("/gitlogin")
-def gitlogin():
-    if not github.authorized:
-        return redirect(url_for("github.login"))
-    resp = github.get("/user")
-    assert resp.ok
-    print(resp.json())
-    return "You are @{login} on GitHub".format(login=resp.json()["login"])
 
 
 @app.route("/post/<int:post_id>/update", methods=['GET', 'POST'])

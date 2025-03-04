@@ -16,6 +16,7 @@ login_manager.login_view = 'login'
 login_manager.login_message_category ='info'
 mail = Mail()
 
+from flaskblog.users.routes import app
 from flaskblog.main.routes import app
 
 def create_app(config_class=Config):
