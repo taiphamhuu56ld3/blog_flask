@@ -16,6 +16,8 @@ login_manager.login_view = 'login'
 login_manager.login_message_category ='info'
 mail = Mail()
 
+from flaskblog.main.routes import app
+
 def create_app(config_class=Config):
     app.config.from_object(config_class)
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
