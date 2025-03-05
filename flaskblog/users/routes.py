@@ -1,15 +1,13 @@
-import os
-import secrets
 
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_dance.contrib.github import github
 from flask_login import current_user, login_required, login_user, logout_user
-from PIL import Image
 
 from flaskblog import bcrypt, db
 from flaskblog.models import User
 from flaskblog.users.forms import (LoginForm, RegistrationForm,
                                    UpdateAccountForm)
+from flaskblog.users.utils import save_picture
 
 users = Blueprint('users', __name__)
 
@@ -51,21 +49,6 @@ def logout():
     logout_user()
     return redirect(url_for('main.home'))
 
-
-def save_picture(form_picture):
-    random_hex = secrets.token_hex(8)
-    # Get name picture
-    _, f_text = os.path.splitext(form_picture.filename)
-    picture_fn = random_hex + f_text
-    picture_path = os.path.join(
-        users.root_path, 'static/profile_pics', picture_fn)
-
-    out_size = (125, 125)
-    i = Image.open(form_picture)
-    i.thumbnail
-    i.save(picture_path)
-
-    return picture_fn
 
 # Infor account
 @users.route("/account", methods=['GET', 'POST'])
