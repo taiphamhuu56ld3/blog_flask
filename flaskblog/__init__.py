@@ -27,9 +27,11 @@ def create_app(config_class=Config):
     from flaskblog.users.routes import users
     from flaskblog.posts.routes import posts
     from flaskblog.main.routes import main
+    from flaskblog.errors.handler import errors
     app.register_blueprint(users)
     app.register_blueprint(main)
     app.register_blueprint(posts)
+    app.register_blueprint(errors)
     blueprint = make_github_blueprint(
         client_id="Ov23liCBryBDxvtnwTqH",
         client_secret="0f23236da39e20bd27b6669d12c4808d75b44c7f",
