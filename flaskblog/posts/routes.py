@@ -4,7 +4,7 @@ from flask_login import current_user, login_required
 
 from flaskblog import db
 from flaskblog.models import Post
-from flaskblog.users.forms import PostForm
+from flaskblog.posts.forms import PostForm
 
 posts = Blueprint('posts', __name__)
 
