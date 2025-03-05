@@ -7,8 +7,6 @@ from flask_mail import Mail
 
 from flaskblog.config import Config
 
-app = Flask(__name__)
-
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
@@ -18,6 +16,7 @@ mail = Mail()
 
 
 def create_app(config_class=Config):
+    app = Flask(__name__)
     app.config.from_object(config_class)
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.init_app(app)

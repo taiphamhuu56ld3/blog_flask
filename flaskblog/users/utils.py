@@ -3,7 +3,7 @@ import secrets
 
 from PIL import Image
 
-from flaskblog import app
+from flask import current_app
 
 
 # Decorator
@@ -13,7 +13,7 @@ def save_picture(form_picture):
     _, f_text = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_text
     picture_path = os.path.join(
-        app.root_path, 'static/profile_pics', picture_fn)
+        current_app.root_path, 'static/profile_pics', picture_fn)
 
     out_size = (125, 125)
     i = Image.open(form_picture)
