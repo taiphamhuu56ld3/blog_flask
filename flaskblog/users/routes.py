@@ -4,7 +4,7 @@ from flask_dance.contrib.github import github
 from flask_login import current_user, login_required, login_user, logout_user
 
 from flaskblog import bcrypt, db
-from flaskblog.models import User
+from flaskblog.models import Post, User
 from flaskblog.users.forms import (LoginForm, RegistrationForm,
                                    UpdateAccountForm)
 from flaskblog.users.utils import save_picture
@@ -74,6 +74,14 @@ def account():
 
     return render_template('account.html', title='Account', image_file=image_file, form=form)
 
+@users.route("/user/<string:username>")
+def user_posts(username):
+    page = request.args.get('page', 1, type = int)
+    user = User.query.filter_by(user_name = username).first_or_404()
+    posts = Post.query.filter_by(author = user)\
+        .order_by(Post.date_posted.desc())\
+        .paginate(page = page, per_page = 5)
+    return render_template('user_posts.html', posts = posts, user = user)
 
 @users.route("/gitlogin")
 def gitlogin():
