@@ -1,6 +1,8 @@
 # Run file to create database
-from flaskblog import db, app
+from flask import current_app
+
+from flaskblog import db
 from flaskblog.models import User
 
-with app.app_context():
+with current_app.app_context():
     db.create_all()
