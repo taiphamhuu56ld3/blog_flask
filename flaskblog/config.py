@@ -1,7 +1,7 @@
 import os
 
 class Config:
-    SECRET_KEY = "b2dd17eb994d430edbc07467c6805875"
+    SECRET_KEY = os.environ.get('SECRET_KEY')
     SQLALCHEMY_DATABASE_URI = 'sqlite:///site.db'
     MAIL_SERVER = 'smtp.googlemail.com' # Địa chỉ máy chủ SMTP sử dụng để gửi email
     MAIL_PORT = 587 # Cổng máy chủ SMTP (thường là 587 với TLS hoặc 465 với SSL).
