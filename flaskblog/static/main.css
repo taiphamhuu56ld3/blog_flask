@@ -25,6 +25,33 @@
   --nav-text-color: #ffae42;
 }
 
+.bright-theme {
+  /* Main colors */
+  --primary-color: #020c8a;
+  --secondary-color: #232092;
+  --accent-color: #272c84;
+  --hover-color: #36378d;
+  --dark-accent: #021e8b;
+
+  /* Background colors */
+  --bg-color: #ccc9c9;
+  --content-bg-color: #f6f0f0;
+
+  /* Text colors */
+  --text-color: #272933;
+  --header-text-color: var(--primary-color);
+  --link-text-color: #223472;
+
+  /* Border & effect colors */
+  --border-color: #3f4b88;
+  --separator-color: #2f288a;
+  --hover-metadata: #000dff;
+
+  /* Navbar colors */
+  --nav-bg-color: #1f1695;
+  --nav-text-color: #42ffe3;
+}
+
 body {
   background: var(--bg-color);
   color: var(--text-color);
