@@ -14,6 +14,7 @@
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename ='main.css') }}">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link href="{{ url_for('static',filename ='footer.css') }}" rel="stylesheet">
   {% if title %}
   <title>
     Tai's Blog - {{title}}
@@ -85,6 +86,16 @@
     </div>
   </main>
 
+  <footer class="footer">
+    <div class="footer-text">
+        <p>&copy; Designed by Tai Pham</p>
+    </div>
+
+    <div class="footer-iconTop">
+        <a href="#" class="social-btn">
+          <i class='bx bx-up-arrow-alt'></i></a>
+    </div>
+  </footer>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
