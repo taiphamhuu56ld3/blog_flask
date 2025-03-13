@@ -19,6 +19,12 @@ login_manager.login_view = 'users.login'
 login_manager.login_message_category ='info'
 mail = Mail()
 
+def create_database(app):
+    with app.app_context():
+        db_path = app.config["SQLALCHEMY_DATABASE_URI"].replace("sqlite:///", "")
+        if not os.path.exists(db_path):
+            db.create_all()
+            print("Database created successfully!")
 
 def create_app(config_class=Config):
     app = Flask(__name__)
@@ -41,4 +47,7 @@ def create_app(config_class=Config):
         client_secret=os.environ.get('GITHUB_CLIENT_SECRET'),
     )
     app.register_blueprint(blueprint, url_prefix="/login")
+
+    create_database(app)
+
     return app
