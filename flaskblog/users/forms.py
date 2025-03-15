@@ -3,11 +3,12 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed, FileField
 from wtforms import BooleanField, StringField
 from wtforms.fields.simple import PasswordField, SubmitField
-from wtforms.validators import (DataRequired, Email, EqualTo, Length,
+from wtforms.validators import (DataRequired, Email, EqualTo, Length, Optional,
                                 ValidationError)
 
 from flaskblog.models import User
 
+current_user: User
 
 class RegistrationForm(FlaskForm):
     user_name = StringField('Username', validators=[
@@ -39,12 +40,26 @@ class LoginForm(FlaskForm):
 
 
 class UpdateAccountForm(FlaskForm):
-    username = StringField('Username', validators=[
-                           DataRequired(), Length(min=2, max=20)])
+    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email', validators=[DataRequired(), Email()])
-    picture = FileField('Update Profile Picture', validators=[
-                        FileAllowed(['jpg', 'png'])])
+    picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
+
+    require_password = False
+
+    current_password = PasswordField('Current Password', validators=[Optional()])
+    new_password = PasswordField('New Password', validators=[Optional()])
+    confirm_password = PasswordField('Confirm New Password', validators=[Optional(), EqualTo('new_password')])
+
     submit = SubmitField('Update')
+
+    def __init__(self, *args, **kwargs):
+        require_password = kwargs.pop('require_password', False)
+        super(UpdateAccountForm, self).__init__(*args, **kwargs)
+
+        if require_password:
+            self.current_password.validators = [DataRequired()]
+            self.new_password.validators = [DataRequired()]
+            self.confirm_password.validators = [DataRequired(), EqualTo('new_password')]
 
     def validate_username(self, username):
         if username.data != current_user.user_name:
