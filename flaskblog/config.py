@@ -3,8 +3,8 @@ import os
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY')
     SQLALCHEMY_DATABASE_URI = 'sqlite:///site.db'
-    MAIL_SERVER = 'smtp.googlemail.com' # Địa chỉ máy chủ SMTP sử dụng để gửi email
-    MAIL_PORT = 587 # Cổng máy chủ SMTP (thường là 587 với TLS hoặc 465 với SSL).
-    MAIL_USE_TLS = True # Bật hoặc tắt sử dụng TLS (Transport Layer Security) cho kết nối email.
+    MAIL_SERVER = 'smtp.googlemail.com' # SMTP server address to use for sending emails
+    MAIL_PORT = 587 # SMTP server port (usually 587 with TLS or 465 with SSL).
+    MAIL_USE_TLS = True # Enable or disable the use of TLS (Transport Layer Security) for email connections.
     MAIL_USERNAME = os.environ.get('EMAIL_USER')
     MAIL_PASSWORD = os.environ.get('EMAIL_PASS')
