@@ -1,5 +1,14 @@
 {% extends "layout.html" %}
 {% block content %}
+<!-- Loading Spinner -->
+<div id="loading-spinner" class="text-center mt-4">
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
+<!-- Post Container (Hidden Initially) -->
+<div id="post-container" style="display: none;">
     {% for post in posts.items %}
         <article class="media content-section">
           <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
@@ -9,10 +18,14 @@
               <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
             </div>
             <h2><a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h2>
-            <p class="article-content">{{ post.content }}</p>
+            <p class="article-content">{{ post.content[:200] }}{% if post.content|length > 200 %}... <a href="{{ url_for('posts.post', post_id=post.id) }}">Read more</a>{% endif %}</p>
           </div>
         </article>
     {% endfor %}
+</div>
+
+<!-- Pagination -->
+<div class="pagination-container">
     {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
       {% if page_num %}
         {% if posts.page == page_num %}
@@ -24,4 +37,9 @@
         ...
       {% endif %}
     {% endfor %}
+</div>
+
+<!-- Handle Loading Effect -->
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
+
 {% endblock content %}
