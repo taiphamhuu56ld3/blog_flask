@@ -19,7 +19,7 @@ login_manager.login_view = 'users.login'
 login_manager.login_message_category ='info'
 mail = Mail()
 
-def create_database(app):
+def create_database(app: Flask):
     with app.app_context():
         db_path = app.config["SQLALCHEMY_DATABASE_URI"].replace("sqlite:///", "")
         if not os.path.exists(db_path):

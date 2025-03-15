@@ -26,13 +26,13 @@ def new_post():
 
 @posts.route("/post/<int:post_id>", methods=['GET', 'POST'])
 def post(post_id):
-    post = Post.query.get_or_404(post_id)
+    post: Post = Post.query.get_or_404(post_id)
     return render_template('post.html', title='post', post=post)
 
 @posts.route("/post/<int:post_id>/update", methods=['GET', 'POST'])
 @login_required
 def update_post(post_id):
-    post = Post.query.get_or_404(post_id)
+    post: Post = Post.query.get_or_404(post_id)
     if post.author != current_user:
         abort(403)
     form = PostForm()
