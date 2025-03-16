@@ -43,3 +43,14 @@ window.addEventListener("beforeunload", function (event) {
 postForm.addEventListener("submit", () => {
     formChanged = false;
 });
+
+// Hide warning when user decides to stay
+document.addEventListener("DOMContentLoaded", function () {
+    const alerts = document.querySelectorAll(".alert");
+    alerts.forEach(alert => {
+        setTimeout(() => {
+            alert.classList.add("fade");
+            setTimeout(() => alert.remove(), 500);
+        }, 3000);
+    });
+});
