@@ -15,3 +15,7 @@ def home():
 @main.route("/about")
 def about():
     return render_template('about.html', title = "About")
+
+@main.route("/admin")
+def admin():
+    return render_template('admin.html', title = "Admin")

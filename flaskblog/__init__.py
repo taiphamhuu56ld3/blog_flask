@@ -2,12 +2,14 @@ import os
 
 from dotenv import load_dotenv
 from flask import Flask
+from flask_admin import Admin
 from flask_bcrypt import Bcrypt
 from flask_dance.contrib.github import make_github_blueprint
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
 
+from flaskblog.admin.service import UserView, PostView
 from flaskblog.config import Config
 
 load_dotenv()
@@ -16,15 +18,19 @@ db = SQLAlchemy()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
 login_manager.login_view = 'users.login'
-login_manager.login_message_category ='info'
+login_manager.login_message_category = 'info'
 mail = Mail()
+admin = Admin()
+
 
 def create_database(app: Flask):
     with app.app_context():
-        db_path = app.config["SQLALCHEMY_DATABASE_URI"].replace("sqlite:///", "")
+        db_path = app.config["SQLALCHEMY_DATABASE_URI"].replace(
+            "sqlite:///", "")
         if not os.path.exists(db_path):
             db.create_all()
             print("Database created successfully!")
+
 
 def create_app(config_class=Config):
     app = Flask(__name__)
@@ -37,7 +43,10 @@ def create_app(config_class=Config):
     from flaskblog.errors.handler import errors
     from flaskblog.main.routes import main
     from flaskblog.posts.routes import posts
-    from flaskblog.users.routes import users
+    from flaskblog.users.routes import Post, User, users
+    admin.add_view(UserView(User, db.session))
+    admin.add_view(PostView(Post, db.session))
+    admin.init_app(app)
     app.register_blueprint(users)
     app.register_blueprint(main)
     app.register_blueprint(posts)
