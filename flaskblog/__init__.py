@@ -9,7 +9,7 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
 
-from flaskblog.admin.service import UserView, PostView
+from flaskblog.admin.service import PostView, UserView
 from flaskblog.config import Config
 
 load_dotenv()
@@ -36,6 +36,8 @@ def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    app.config["SESSION_PERMANENT"]=False
+    app.config["SESSION_TYPE"]='filesystem'
     db.init_app(app)
     bcrypt.init_app(app)
     login_manager.init_app(app)
@@ -43,7 +45,7 @@ def create_app(config_class=Config):
     from flaskblog.errors.handler import errors
     from flaskblog.main.routes import main
     from flaskblog.posts.routes import posts
-    from flaskblog.users.routes import Post, User, users
+    from flaskblog.users.routes import Post, User, users, Status
     admin.add_view(UserView(User, db.session))
     admin.add_view(PostView(Post, db.session))
     admin.init_app(app)
@@ -58,5 +60,9 @@ def create_app(config_class=Config):
     app.register_blueprint(blueprint, url_prefix="/login")
 
     create_database(app)
+
+    @app.context_processor
+    def inject_status():
+        return dict(Status=Status)
 
     return app

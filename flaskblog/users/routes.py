@@ -1,10 +1,11 @@
 
-from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask import (Blueprint, flash, redirect, render_template, request,
+                   session, url_for)
 from flask_dance.contrib.github import github
 from flask_login import current_user, login_required, login_user, logout_user
 
 from flaskblog import bcrypt, db
-from flaskblog.models import Post, User
+from flaskblog.models import Post, Status, User, has_access
 from flaskblog.users.forms import (LoginForm, RegistrationForm,
                                    RequestResetForm, ResetPasswordForm,
                                    UpdateAccountForm)
@@ -28,7 +29,7 @@ def register():
 
     return render_template('register.html', title='Register', form=form)
 
-
+# User login
 @users.route("/login", methods=["POST", "GET"])
 def login():
     if current_user.is_authenticated:
@@ -37,18 +38,34 @@ def login():
     if form.validate_on_submit():
         user: User = User.query.filter_by(email=form.email.data).first()
         if user and user.check_password(form.password.data):
-            login_user(user, remember=form.remember.data)
-            # next page is account
-            next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('main.home'))
+            # check the admin approve your account are not
+            is_approve: User=User.query.filter_by(id=user.id).first()
+            if has_access(is_approve.status, {Status.INACTIVE, 
+                                              Status.BANNED, 
+                                              Status.PENDING}):
+            # if is_approve.status == Status.USER:
+                flash('Your Account is not approved by Admin','danger')
+            else:
+                login_user(user, remember=form.remember.data)
+                # next page is account
+                next_page = request.args.get('next')
+                session['user_id']=user.id
+                session['user_name']=user.user_name
+                flash('Login Successfully','success')
+                return redirect(next_page) if next_page else redirect(url_for('main.home'))
         else:
             flash('Login Unsucessful. Please check email and password', 'danger')
     return render_template('login.html', title="Login", form=form)
 
-
+# User logout
 @users.route("/logout")
 def logout():
+    if not session.get('user_id'):
+        return redirect(url_for('main.home'))
+
     logout_user()
+    session['user_id'] = None
+    session['user_name'] = None
     return redirect(url_for('main.home'))
 
 

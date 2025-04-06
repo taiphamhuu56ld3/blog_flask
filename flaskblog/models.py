@@ -1,4 +1,6 @@
 from datetime import datetime
+from enum import Enum
+from typing import Any, List
 
 from flask import current_app
 from flask_bcrypt import Bcrypt
@@ -6,6 +8,20 @@ from flask_login import UserMixin
 from itsdangerous import URLSafeTimedSerializer as Serializer
 
 from flaskblog import db, login_manager
+
+
+class Status(Enum):
+    ACTIVE = "active" # Account is active
+    INACTIVE = "inactive" # Account is disabled
+    BANNED = "banned" # Account is permanently banned
+    PENDING = "pending" # Account is pending confirmation
+    ADMIN = "admin" # Admin can access all pages
+    USER = "user" # Regular user
+    GUEST = "guest" # Guest (not registered)
+
+# Check access rights
+def has_access(user_status: Status, required_status: List[Status]):
+    return user_status in required_status
 
 bcrypt = Bcrypt()
 
@@ -20,6 +36,7 @@ class User(db.Model, UserMixin):
     image_file = db.Column(db.String(20), nullable=False, default = 'default.jpg')
     password = db.Column(db.String(60), nullable = False)
     posts = db.relationship('Post', backref = 'author', lazy  = True)
+    status = db.Column(db.Enum(Status), default=Status.USER)
 
     def set_password(self, password):
         self.password = bcrypt.generate_password_hash(password).decode('utf-8')
