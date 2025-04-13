@@ -1,6 +1,4 @@
 from datetime import datetime
-from enum import Enum
-from typing import Any, List
 
 from flask import current_app
 from flask_bcrypt import Bcrypt
@@ -8,20 +6,7 @@ from flask_login import UserMixin
 from itsdangerous import URLSafeTimedSerializer as Serializer
 
 from flaskblog import db, login_manager
-
-
-class Status(Enum):
-    ACTIVE = "active" # Account is active
-    INACTIVE = "inactive" # Account is disabled
-    BANNED = "banned" # Account is permanently banned
-    PENDING = "pending" # Account is pending confirmation
-    ADMIN = "admin" # Admin can access all pages
-    USER = "user" # Regular user
-    GUEST = "guest" # Guest (not registered)
-
-# Check access rights
-def has_access(user_status: Status, required_status: List[Status]):
-    return user_status in required_status
+from flaskblog.utils import Status
 
 bcrypt = Bcrypt()
 

@@ -5,11 +5,12 @@ from flask_dance.contrib.github import github
 from flask_login import current_user, login_required, login_user, logout_user
 
 from flaskblog import bcrypt, db
-from flaskblog.models import Post, Status, User, has_access
+from flaskblog.models import Post, User
 from flaskblog.users.forms import (LoginForm, RegistrationForm,
                                    RequestResetForm, ResetPasswordForm,
                                    UpdateAccountForm)
 from flaskblog.users.utils import save_picture, send_reset_email
+from flaskblog.utils import Status, has_access
 
 users = Blueprint('users', __name__)
 current_user: User
@@ -43,7 +44,6 @@ def login():
             if has_access(is_approve.status, {Status.INACTIVE, 
                                               Status.BANNED, 
                                               Status.PENDING}):
-            # if is_approve.status == Status.USER:
                 flash('Your Account is not approved by Admin','danger')
             else:
                 login_user(user, remember=form.remember.data)

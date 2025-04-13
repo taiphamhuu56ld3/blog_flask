@@ -8,9 +8,9 @@ from flask_dance.contrib.github import make_github_blueprint
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
-
-from flaskblog.admin.service import PostView, UserView
 from flaskblog.config import Config
+from flaskblog.utils import Status
+
 
 load_dotenv()
 
@@ -20,7 +20,6 @@ login_manager = LoginManager()
 login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'info'
 mail = Mail()
-admin = Admin()
 
 
 def create_database(app: Flask):
@@ -45,10 +44,13 @@ def create_app(config_class=Config):
     from flaskblog.errors.handler import errors
     from flaskblog.main.routes import main
     from flaskblog.posts.routes import posts
-    from flaskblog.users.routes import Post, User, users, Status
+    from flaskblog.users.routes import Post, User, users
+    from flaskblog.admin.service import PostView, UserView, MyAdminIndexView
+    admin = Admin(app, 
+                  name="Tai's Blog", 
+                  index_view=MyAdminIndexView())
     admin.add_view(UserView(User, db.session))
     admin.add_view(PostView(Post, db.session))
-    admin.init_app(app)
     app.register_blueprint(users)
     app.register_blueprint(main)
     app.register_blueprint(posts)

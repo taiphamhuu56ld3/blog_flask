@@ -52,7 +52,7 @@
             <a class="nav-item nav-link" id="icon"><i class='bx bx-sun'></i></a>
             {% endif %}
             {% if current_user.is_authenticated and current_user.status == Status.ADMIN %}
-            <a class="nav-item nav-link" href="{{ url_for('main.admin') }}">Admin</a>
+            <a class="nav-item nav-link" href="{{ url_for('admin.index') }}">Admin</a>
             {% endif %}
           </div>
         </div>
