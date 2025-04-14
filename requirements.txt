@@ -1,0 +1,7 @@
+python-dotenv
+flask-bcrypt
+flask-dance
+Flask-Mail
+flask_wtf
+Pillow
+flask_admin
