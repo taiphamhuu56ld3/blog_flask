@@ -1,12 +1,8 @@
-.author img,
+
 .author span,
 .author button,
 .author ion-icon {
   display: block;
-}
-
-.author img {
-  height: auto;
 }
 
 .author button {
@@ -27,7 +23,7 @@
 /* HERO */
 
 .author {
-  padding-block-start: calc(var(--section-padding) + 160px);
+  padding-block-start: var(--section-padding);
 }
 
 .author .container {

@@ -1,42 +1,48 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div class="author">
-        <div class="container">
-            <div class="author-content"></div>
-            <p class="author-subtitle">Hello Everyone!</p>
+<!-- Preload images -->
+<link rel="Preload" as="image" href="../static/pics/tai_home.png" />
+<link rel="Preload" as="image" href="../static/pics/blink1.png" />
+<link rel="Preload" as="image" href="../static/pics/blink2.png" />
+<link rel="Preload" as="image" href="../static/pics/blink3.png" />
 
-            <h1 class="headline headline-1 section-title">
-                I’m <span class="span">Phạm Hữu Tài</span>
-            </h1>
+<div class="author">
+    <div class="container">
+        <div class="author-content"></div>
+        <p class="author-subtitle">Hello Everyone!</p>
 
-            <p class="author-text">
-                I am a Software Engineer with nearly 4 years of experience in software development, 
-                automated testing, performance optimization, and system maintenance. 
-                I have a strong background in C++, Python, object-oriented programming (OOP), 
-                SOLID principles, and CI/CD pipelines.
-            </p>
+        <h1 class="headline headline-1 section-title">
+            I’m <span class="span">Phạm Hữu Tài</span>
+        </h1>
 
-            <a href="mailto:taiphamhuu56ld3@gmail.com">
-                <button class="btn btn-primary">
-                    <span class="span">Send Email</span>
-                    <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
-                </button>
-            </a>
+        <p class="author-text">
+            I am a Software Engineer with nearly 4 years of experience in software development,
+            automated testing, performance optimization, and system maintenance.
+            I have a strong background in C++, Python, object-oriented programming (OOP),
+            SOLID principles, and CI/CD pipelines.
+        </p>
 
-            <div class="author-banner">
-                <img src="../static/pics/tai_home.png" width="327" height="490" alt="TaiPham Clark" class="w-100" />
+        <a href="mailto:taiphamhuu56ld3@gmail.com">
+            <button class="btn btn-primary">
+                <span class="span">Send Email</span>
+                <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+            </button>
+        </a>
 
-                <img src="../static/pics/blink1.png" width="35" height="35" alt="shape" class="shape shape-1" />
+        <div class="author-banner">
+            <img src="../static/pics/tai_home.png" width="327" height="490" alt="TaiPham Clark" class="w-100" />
 
-                <img src="../static/pics/blink2.png" width="25" height="25" alt="shape" class="shape shape-2" />
+            <img src="../static/pics/blink1.png" width="35" height="35" alt="shape" class="shape shape-1" />
 
-                <img src="../static/pics/blink3.png" width="20" height="20" alt="shape" class="shape shape-3" />
-            </div>
+            <img src="../static/pics/blink2.png" width="25" height="25" alt="shape" class="shape shape-2" />
 
+            <img src="../static/pics/blink3.png" width="20" height="20" alt="shape" class="shape shape-3" />
         </div>
 
-        <h1>About Tai's Blog</h1>
-        <p class="lead">A blog for developers and tech enthusiasts.</p>
-        <p>Here, you'll find articles on programming, software development, and personal experiences.</p>
     </div>
+
+    <h1>About Tai's Blog</h1>
+    <p class="lead">A blog for developers and tech enthusiasts.</p>
+    <p>Here, you'll find articles on programming, software development, and personal experiences.</p>
+</div>
 {% endblock content %}

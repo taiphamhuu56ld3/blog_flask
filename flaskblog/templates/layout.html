@@ -30,42 +30,75 @@
   {% else %}
   <title>Tai's Blog</title>
   {% endif %}
+
+  <!-- Preload images -->
+  <link rel="Preload" as="image" href="../static/pics/logo.png" />
 </head>
 
 <body>
-  <header class="site-header">
-    <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
-      <div class="container">
-        <a class="navbar-brand mr-4" href="/">Tai's Blog</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
-          aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarToggle">
-          <div class="navbar-nav mr-auto">
-            <a class="nav-item nav-link" href="{{ url_for('main.home') }}">Home</a>
-            <a class="nav-item nav-link" href="{{ url_for('main.about') }}">About</a>
-            <a class="nav-item nav-link" href="{{ url_for('posts.new_post') }}">Create Post</a>
-          </div>
-          <!-- Navbar Right Side -->
-          <div class="navbar-nav">
-            {% if current_user.is_authenticated %}
-            <a class="nav-item nav-link" href="{{ url_for('users.account') }}">Account</a>
-            <a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Logout</a>
-            <a class="nav-item nav-link" id="icon"><i class='bx bx-sun'></i></a>
-            {% else %}
-            <a class="nav-item nav-link" href="{{ url_for('users.login') }}">Login</a>
-            <a class="nav-item nav-link" href="{{ url_for('users.register') }}">Register</a>
-            <a class="nav-item nav-link" id="icon"><i class='bx bx-sun'></i></a>
-            {% endif %}
-            {% if current_user.is_authenticated and current_user.status == Status.ADMIN %}
-            <a class="nav-item nav-link" href="{{ url_for('admin.index') }}">Admin</a>
-            {% endif %}
-          </div>
+  <header class="header" data-header>
+    <div class="container">
+      <a href="#" class="logo">
+        <img width="119" height="37" src="../static/pics/logo.png" alt="Tai logo" />
+      </a>
+  
+      <nav class="navbar" data-navbar>
+        <div class="navbar-top">
+          <a href="#" class="logo"><img width="119" height="37" src="../static/pics/logo.png" alt="Tai logo" /></a>
+  
+          <button class="nav-close-btn" aria-label="close menu" data-nav-toggler>
+            <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+          </button>
         </div>
-      </div>
-    </nav>
+  
+        <ul class="navbar-list">
+          <li><a href="{{ url_for('main.home') }}" class="nav-item nav-link" data-nav-toggler>Home</a></li>
+          <li><a href="{{ url_for('main.about') }}" class="nav-item nav-link" data-nav-toggler>About</a></li>
+          <li><a href="{{ url_for('posts.new_post') }}" class="nav-item nav-link" data-nav-toggler>Create Post</a></li>
+          {% if current_user.is_authenticated %}
+          <li><a href="{{ url_for('users.account') }}" class="nav-item nav-link" data-nav-toggler>Account</a></li>
+          <li><a href="{{ url_for('users.logout') }}" class="nav-item nav-link" data-nav-toggler>Logout</a></li>
+          {% else %}
+          <li><a href="{{ url_for('users.login') }}" class="nav-item nav-link" data-nav-toggler>Login</a></li>
+          <li><a href="{{ url_for('users.register') }}" class="nav-item nav-link" data-nav-toggler>Register</a></li>
+          {% endif %}
+          {% if current_user.is_authenticated and current_user.status == Status.ADMIN %}
+          <li><a href="{{ url_for('admin.index') }}" class="nav-item nav-link" data-nav-toggler>Admin</a></li>
+          {% endif %}
+          <li><a id="icon"><i class='bx bx-sun nav-item nav-link'></i></a></li>
+        </ul>
+  
+        {% if current_user.is_authenticated %}
+        <div class="navbar-bottom">
+          <div class="profile-card">
+            <img src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}" class="profile-banner"
+              width="48" height="48" alt="TaiPham" />
+            <div>
+              <p class="card-title">Hello {{ current_user.user_name }} !</p>
+              <p class="card-subtitle">You have some new messages</p>
+            </div>
+          </div>
+  
+          <ul class="link-list">
+            <li><a href="{{ url_for('main.about') }}" class="navbar-bottom-link nav-link">Profile </a></li>
+            <li><a href="{{ url_for('users.user_posts', username = current_user.user_name)}}"
+                class="navbar-bottom-link nav-link">Articles Saved </a></li>
+            <li><a href="{{ url_for('posts.new_post') }}" class="navbar-bottom-link nav-link">Add New Post </a></li>
+            <li><a href="{{ url_for('main.home') }}" class="navbar-bottom-link nav-link">My Likes </a></li>
+            <li><a href="{{ url_for('users.account') }}" class="navbar-bottom-link nav-link">Account Setting </a></li>
+            <li><a href="{{ url_for('users.logout') }}" class="navbar-bottom-link nav-link">Sign Out </a></li>
+          </ul>
+        </div>
+        {% endif %}
+  
+        <p class="copyright-text">Copyright 2025 © TaiPham - Blog. Developed by coding Tai Pham</p>
+      </nav>
+      <button class="nav-open-btn" aria-label="open menu" data-nav-toggler>
+        <ion-icon name="menu-outline" aria-hidden="true"></ion-icon>
+      </button>
+    </div>
   </header>
+
   <main role="main" class="container">
     <div class="row">
       <div class="{% if request.endpoint == 'main.about' %}col-md-12{% else %}col-md-8{% endif %}">

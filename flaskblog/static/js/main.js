@@ -38,3 +38,21 @@ if (localStorage.getItem("theme") === "bright") {
     document.body.classList.add("bright-theme");
     icon.querySelector('i').classList.replace('bx-sun', 'bx-moon');
 }
+
+// Enable horizontal navbar in viewports smaller than 1200px
+
+const addEventOnElements = function (elements, eventType, callback) {
+  for (let i = 0, len = elements.length; i < len; i++) {
+    elements[i].addEventListener(eventType, callback);
+  }
+};
+
+const navbar = document.querySelector("[data-navbar]");
+const navTogglers = document.querySelectorAll("[data-nav-toggler]");
+
+const toggleNav = () => {
+  navbar.classList.toggle("active");
+  document.body.classList.toggle("nav-active");
+}
+
+addEventOnElements(navTogglers, "click", toggleNav);
