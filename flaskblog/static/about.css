@@ -1,46 +1,3 @@
-:root {
-  /* colors */
-
-  /* Background colors */
-  --bg-oxford-blue: hsla(222, 44%, 13%, 1);
-
-  /* Text colors */
-
-  --text-alice-blue: hsla(216, 100%, 95%, 1);
-  --text-columbia-blue: hsla(199, 69%, 84%, 1);
-
-  /* Gradient colors */
-  --gradient-1: linear-gradient(90deg, #0ea5ea, #0bd1d1 51%);
-  --gradient-2: linear-gradient(90deg, #0ea5ea, #0bd1d1 51%, #0ea5ea);
-
-  /* Border colors */
-  --border-white: hsl(0, 0%, 100%);
-
-  /* Defalut colors */
-  --white: hsl(0, 0%, 100%, 1);
-
-  /* Font size */
-  --fontSize-1: 2.9rem;
-  --fontSize-6: 1.4rem;
-
-  /* Font Weight */
-  --weight-bold: 700;
-  --weight-extraBold: 800;
-
-  /* line height */
-  --lineHeight-1: 1.3;
-
-  /* Border Radius */
-  --radius-6: 6px;
-  --radius-48: 48px;
-
-  /* Spacing */
-  --section-padding: 70px;
-
-  /* Transition */
-  --transition-1: 0.25s ease;
-}
-
 .author img,
 .author span,
 .author button,
@@ -78,7 +35,7 @@
 }
 
 .author .headline {
-  color: var(--text-columbia-blue);
+  color: var(--text-alice-blue);
   line-height: var(--lineHeight-1);
 }
 

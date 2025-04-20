@@ -1,109 +1,145 @@
 :root {
-  /* Main colors */
-  --primary-color: #ff4500;
-  --secondary-color: #ff6a36;
-  --accent-color: #ff6347;
-  --hover-color: #ff6f61;
-  --dark-accent: #e03e00;
+  /* colors */
 
   /* Background colors */
-  --bg-color: #1a1a1a;
-  --content-bg-color: #292929;
+  --bg-carolina-blue: hsla(199, 89%, 49%, 1);
+  --bg-prussian-blue: hsla(216, 33%, 20%, 1);
+  --bg-oxford-blue: hsla(222, 44%, 13%, 1);
+  --bg-oxford-blue-2: hsla(222, 47%, 11%, 1);
 
   /* Text colors */
-  --text-color: #ffddc1;
-  --header-text-color: var(--primary-color);
-  --link-text-color: #ce633d;
 
-  /* Border & effect colors */
-  --border-color: #ffa07a;
-  --separator-color: #ff6347;
-  --hover-metadata: #ff8c00;
+  --text-alice-blue: hsla(216, 100%, 95%, 1);
+  --text-columbia-blue: hsla(199, 69%, 84%, 1);
+  --text-wild-blue-yonder: hsla(216, 33%, 68%, 1);
+  --text-carolina-blue: hsla(199, 89%, 49%, 1);
+  --text-shadow-blue: hsla(217, 24%, 59%, 1);
 
-  /* Navbar colors */
-  --nav-bg-color: #ff5722;
-  --nav-text-color: #ffae42;
+  /* Gradient colors */
+  --gradient-1: linear-gradient(90deg, #0ea5ea, #0bd1d1 51%);
+  --gradient-2: linear-gradient(90deg, #0ea5ea, #0bd1d1 51%, #0ea5ea);
+
+  /* Border colors */
+  --border-prussian-blue: hsla(216, 33%, 20%, 1);
+  --border-white: hsl(0, 0%, 100%);
+  --border-white-alpha-15: hsla(0, 0%, 100%, 0.15);
+
+  /* Defalut colors */
+  --white: hsl(0, 0%, 100%, 1);
+
+  /* Font Family */
+  --fontFamily-noto_sans: "Noto Sans", sans-serif;
+
+  /* Font size */
+  --fontSize-1: 2.9rem;
+  --fontSize-2: 2rem;
+  --fontSize-3: 1.8rem;
+  --fontSize-6: 1.4rem;
+  --fontSize-7: 1.2rem;
+  --fontSize-8: 1.3rem;
+
+  /* Font Weight */
+  --weight-medium: 500;
+  --weight-semiBold: 600;
+  --weight-bold: 700;
+  --weight-extraBold: 800;
+
+  /* line height */
+  --lineHeight-1: 1.3;
+  --lineHeight-2: 1.5;
+  --lineHeight-4: 1.5;
+
+  /* Box Shadow */
+  --shadow-1: 0 8px 20px 0 hsla(0, 0%, 0%, 0.05);
+
+  /* Border Radius */
+  --radius-6: 6px;
+  --radius-circle: 50%;
+  --radius-pill: 200px;
+
+  /* Spacing */
+  --section-padding: 70px;
+
+  /* Transition */
+  --transition-1: 0.25s ease;
+  --cubic-in: cubic-bezier(0.51, 0.03, 0.64, 0.28);
+  --cubic-out: cubic-bezier(0.05, 0.83, 0.52, 0.97);
 }
 
+/* Bright Theme */
 .bright-theme {
-  /* Main colors */
-  --primary-color: #020c8a;
-  --secondary-color: #232092;
-  --accent-color: #272c84;
-  --hover-color: #36378d;
-  --dark-accent: #021e8b;
+  --bg-oxford-blue: #ffffff;
+  --bg-oxford-blue-2: #f5f5f5;
+  --bg-prussian-blue: #f5f5f5;
+  --bg-carolina-blue: #ff4500;
 
-  /* Background colors */
-  --bg-color: #ccc9c9;
-  --content-bg-color: #f6f0f0;
+  --text-alice-blue: #222222;
+  --text-columbia-blue: #333333;
+  --text-wild-blue-yonder: #555555;
+  --text-carolina-blue: #ff4500;
+  --text-shadow-blue: #666666;
 
-  /* Text colors */
-  --text-color: #272933;
-  --header-text-color: var(--primary-color);
-  --link-text-color: #223472;
+  --border-prussian-blue: #dddddd;
+  --border-white: #ffffff;
+  --border-white-alpha-15: rgba(0, 0, 0, 0.1);
 
-  /* Border & effect colors */
-  --border-color: #3f4b88;
-  --separator-color: #2f288a;
-  --hover-metadata: #000dff;
-
-  /* Navbar colors */
-  --nav-bg-color: #1f1695;
-  --nav-text-color: #42ffe3;
+  --gradient-1: linear-gradient(90deg, #ff5722, #ff4500);
+  --gradient-2: linear-gradient(90deg, #ff4500, #ff7845 51%, #ff4500);
 }
 
 body {
-  background: var(--bg-color);
-  color: var(--text-color);
+  background: var(--bg-oxford-blue);
+  color: var(--text-alice-blue);
   margin-top: 5rem;
 }
 
 h1, h2, h3, h5 {
-  color: var(--header-text-color);
+  color: var(--text-columbia-blue);
 }
 
 .ml-2, .mr-2 {
-  color: var(--link-text-color);
+  color: var(--text-wild-blue-yonder);
+}
 }
 
 /* Button styles */
 .btn-outline-info {
-  color: var(--primary-color);
-  border-color: var(--secondary-color);
+  color: var(--bg-carolina-blue);
+  border-color: var(--bg-oxford-blue-2);
   transition: all 0.3s ease-in-out;
 }
 
 .btn-outline-info:hover {
-  background-color: var(--accent-color);
+  background-color: var(--border-prussian-blue);
   color: white;
-  border-color: var(--primary-color);
+  border-color: var(--bg-carolina-blue);
 }
 
 .btn-outline-info:active {
-  background-color: var(--dark-accent);
-  border-color: var(--accent-color);
+  background-color: var(--border-white-alpha-15);
+  border-color: var(--border-prussian-blue);
   color: white;
   box-shadow: 0 3px 8px rgba(255, 69, 0, 0.5) inset;
   transform: scale(0.96);
 }
 
 .btn-info {
-  background-color: var(--primary-color);
-  border-color: var(--secondary-color);
+  background-color: var(--bg-carolina-blue);
+  border-color: var(--bg-oxford-blue-2);
   color: white;
   box-shadow: 0 4px 6px rgba(255, 69, 0, 0.3);
   transition: all 0.3s ease-in-out;
 }
 
 .btn-info:hover {
-  background-color: var(--accent-color);
-  border-color: var(--primary-color);
+  background-color: var(--border-prussian-blue);
+  border-color: var(--bg-carolina-blue);
   box-shadow: 0 6px 12px rgba(255, 69, 0, 0.5);
 }
 
 .btn-info:active {
-  background-color: var(--hover-color);
-  border-color: var(--dark-accent);
+  background-color: var(--text-wild-blue-yonder);
+  border-color: var(--border-white-alpha-15);
   box-shadow: 0 3px 8px rgba(255, 69, 0, 0.7) inset;
   transform: scale(0.96);
 }
@@ -127,20 +163,20 @@ h1, h2, h3, h5 {
 
 /* Content section */
 .content-section {
-  background: var(--content-bg-color);
+  background: var(--bg-prussian-blue);
   padding: 10px 20px;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border-prussian-blue);
   border-radius: 3px;
   margin-bottom: 20px;
 }
 
 /* Article styles */
 .article-title {
-  color: var(--header-text-color);
+  color: var(--text-columbia-blue);
 }
 
 a.article-title:hover {
-  color: var(--hover-color);
+  color: var(--text-wild-blue-yonder);
   text-decoration: none;
 }
 
@@ -157,11 +193,11 @@ a.article-title:hover {
 .article-metadata {
   padding-bottom: 1px;
   margin-bottom: 4px;
-  border-bottom: 1px solid var(--separator-color);
+  border-bottom: 1px solid var(--border-white);
 }
 
 .article-metadata a:hover {
-  color: var(--hover-metadata);
+  color: var(--border-white-alpha-15);
   text-decoration: none;
 }
 

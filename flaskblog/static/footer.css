@@ -4,7 +4,7 @@
     align-items: center;
     flex-wrap: wrap;
     padding: 2rem 9%;
-    background: var(--content-bg-color);
+    background: var(--bg-prussian-blue);
 }
 
 .footer-text,
@@ -22,8 +22,8 @@
     justify-content: center;
     align-items: center;
     padding: .8rem;
-    background: var(--primary-color);
-    border: .2rem solid var(--primary-color);
+    background: var(--bg-carolina-blue);
+    border: .2rem solid var(--bg-carolina-blue);
     border-radius: .6rem;
     z-index: 1;
     overflow: hidden;
@@ -36,7 +36,7 @@
     left: 0;
     width: 0;
     height: 100%;
-    background: var(--primary-color);
+    background: var(--bg-carolina-blue);
     z-index: -1;
     transition: .5s;
 }
@@ -47,17 +47,17 @@
 
 .footer-iconTop a i {
     font-size: 2.4rem;
-    color: var(--content-bg-color);
+    color: var(--bg-prussian-blue);
     transition: .5s;
 }
 
 .footer-iconTop a:hover i {
-    color: var(--primary-color);
+    color: var(--bg-carolina-blue);
 }
 
 /* For animation */
 .footer .animate.scroll {
-    background: var(--content-bg-color);
+    background: var(--bg-prussian-blue);
 }
 
 .footer.show-animate .animate.scroll {
